@@ -19,11 +19,6 @@ namespace ExceptionsDemo
 
             var button = new Button
             {
-                Text = "Process file",
-                Left = 130,
-                Top = 70,
-                Width = 140
-            };
 
             button.Click += (_, _) =>
             {
