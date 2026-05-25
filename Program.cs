@@ -6,7 +6,6 @@
         {
             {
                 Console.WriteLine("Det här är simons program nu!");
-                Console.WriteLine("=== Start av programmet ===");
 
                 // Exempel 1: try-catch-finally
                 try
