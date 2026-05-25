@@ -1,49 +1,59 @@
-﻿namespace ExceptionsDemo
+﻿using System.Windows.Forms;
+
+namespace ExceptionsDemo
 {
     internal class Program
     {
-        static void Main(string[] args)
+        [STAThread]
+        static void Main()
         {
+            ApplicationConfiguration.Initialize();
+
+            var form = new Form
+            {
+                Text = "Exceptions Demo",
+                Width = 400,
+                Height = 220,
+                StartPosition = FormStartPosition.CenterScreen
+            };
+
+            var button = new Button
             {
                 Console.WriteLine("Det här är simons program nu!");
 
-                // Exempel 1: try-catch-finally
+            button.Click += (_, _) =>
+            {
                 try
                 {
-                    Console.WriteLine("Försöker läsa fil och räkna...");
                     var path = Path.Combine(AppContext.BaseDirectory, "numbers.txt");
                     var result = ProcessFile(path);
-                  
-                    Console.WriteLine($"\nResultat: {result}");
+
+                    MessageBox.Show(form, $"Resultat: {result}", "Klar", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (FileNotFoundException ex)
                 {
-                    // Specifikt fel om filen inte finns
-                    Console.WriteLine($"Filen hittades inte: {ex.Message}");
+                    MessageBox.Show(form, $"Filen hittades inte: {ex.Message}", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (FormatException ex)
                 {
-                    // Specifikt fel om texten inte kan tolkas som tal
-                    Console.WriteLine($"Formatfel: {ex.Message}");
+                    MessageBox.Show(form, $"Formatfel: {ex.Message}", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (DivideByZeroException ex)
                 {
-                    // Specifikt fel om nolldivision
-                    Console.WriteLine($"Kan inte dividera med noll: {ex.Message}");
+                    MessageBox.Show(form, $"Kan inte dividera med noll: {ex.Message}", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    // Fallback för alla övriga obekanta fel
-                    Console.WriteLine($"Okänt fel: {ex.Message}");
+                    MessageBox.Show(form, $"Okänt fel: {ex.Message}", "Fel", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 finally
                 {
-                    // Körs ALLTID, även om det blev undantag
-                    Console.WriteLine("Cleanup: Logging avslutat anrop.");
+                    MessageBox.Show(form, "Cleanup: Logging avslutat anrop.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            };
 
-                Console.WriteLine("Programmet avslutas normalt.");
-            }
+            form.Controls.Add(button);
+            Application.Run(form);
 
             // Exempel på metod som själv kastar ett undantag (throw)
             static double ProcessFile(string fileName)
