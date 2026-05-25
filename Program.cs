@@ -19,6 +19,7 @@ namespace ExceptionsDemo
 
             var button = new Button
             {
+                Console.WriteLine("Det här är simons program nu!");
 
             button.Click += (_, _) =>
             {
