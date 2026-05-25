@@ -5,7 +5,7 @@
         static void Main(string[] args)
         {
             {
-                Console.WriteLine("=== Start av bästa programmet ===");
+                Console.WriteLine("Det här är simons program nu!");
 
                 // Exempel 1: try-catch-finally
                 try
